@@ -1,5 +1,5 @@
-// Pokémon AEGIS web app, build 0.13.0-mv1324qs. Written by scripts/web/buildPages.mjs.
-const CACHE_NAME = "aegis-play-0.13.0-mv1324qs";
+// Pokémon AEGIS web app, build 1.0.0-mv14ublu. Written by scripts/web/buildPages.mjs.
+const CACHE_NAME = "aegis-play-1.0.0-mv14ublu";
 
 self.addEventListener("install", () => self.skipWaiting());
 
