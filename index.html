@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pokémon AEGIS</title>
+<meta name="description" content="Download Pokémon AEGIS, a free fan game, for Windows and Mac, or play it on iPhone.">
+<meta name="theme-color" content="#191e48">
+<meta name="robots" content="noindex">
+<link rel="icon" href="img/app-icon-32.png">
+<link rel="apple-touch-icon" href="img/app-icon-180.png">
+<!-- The download page (milestone 13): one file, no outside fonts, scripts or trackers. This is the source:
+     scripts/web/buildSite.mjs fills in the double-brace tokens (the version and the release links, from package.json) and copies
+     the game's art and Nunito beside it into img/ and fonts/. It offers the right download by itself. -->
+<style>
+@font-face {
+  font-family: "Nunito";
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/nunito-latin-700-normal.woff2") format("woff2");
+}
+:root {
+  --look-navy: #232856;
+  --look-gold: #ffd979;
+  --look-paper: #fbfbfa;
+  --look-paper-shade: #e2e7ee;
+  --look-rim: #252b40;
+  --look-ink: #2b3040;
+  --look-muted: #6f7890;
+  --look-blue: #3f84d9;
+  --look-blue-soft: #e2edfb;
+  --look-green: #3aaa60;
+  --look-amber-soft: #fcf1d6;
+  --look-sky-top: #191e48;
+  --look-sky-bottom: #2f3878;
+  --look-star: rgba(255, 255, 255, 0.07);
+  --look-glass: rgba(10, 14, 42, 0.5);
+  --look-glass-rim: rgba(170, 186, 240, 0.38);
+  --look-light-ink: #f4f6ff;
+  --look-dim-ink: #b7c0e2;
+  --look-lift: 0 3px 0 rgba(6, 8, 24, 0.4);
+}
+* { box-sizing: border-box; }
+html { background: #3a3c86; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--look-light-ink);
+  font: 700 17px/1.5 "Nunito", system-ui, sans-serif;
+  background:
+    radial-gradient(var(--look-star) 1px, transparent 1.5px) 0 0 / 24px 24px,
+    linear-gradient(var(--look-sky-top), var(--look-sky-bottom) 70%, #3a3c86);
+}
+a { color: inherit; }
+.wrap { max-width: 960px; margin: 0 auto; padding: 0 16px; }
+
+/* ---------- the title scene, the game's own pictures at whole pixels ---------- */
+.hero {
+  position: relative; max-width: 960px; margin: 0 auto; aspect-ratio: 3 / 2; overflow: hidden;
+  border-radius: 0 0 18px 18px; image-rendering: pixelated;
+}
+.hero img, .hero .logo { position: absolute; left: 0; width: 100%; }
+.hero .sky { bottom: 0; height: 107.5%; }
+.hero .bay { bottom: 0; height: 67.5%; }
+.hero .shore { bottom: 0; height: 43.75%; }
+.hero .vignette { top: 0; height: 100%; }
+.hero .logo {
+  top: 8%; left: 23.333%; width: 53.333%; aspect-ratio: 256 / 100;
+  background: url("img/title-logo.png") 0 0 / 100% 1600% no-repeat;
+}
+@media (max-width: 959px) { .hero { image-rendering: auto; } }
+
+/* ---------- paper panels ---------- */
+.card {
+  position: relative; background: var(--look-paper); color: var(--look-ink);
+  border: 2px solid var(--look-rim); border-radius: 14px; padding: 22px 24px 24px;
+  box-shadow: inset 0 -4px 0 var(--look-paper-shade), var(--look-lift);
+}
+.card h2 { margin: 0 0 6px; font-size: 22px; line-height: 1.25; }
+.card p { margin: 0 0 10px; }
+.muted { color: var(--look-muted); font-size: 15px; }
+.tag {
+  display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 13px;
+  background: var(--look-navy); color: var(--look-gold); letter-spacing: 0.04em;
+}
+section { margin: 28px 0; }
+section > h2.on-sky { font-size: 24px; margin: 0 0 12px; text-shadow: 0 2px 0 rgba(6, 8, 24, 0.5); }
+
+/* ---------- the download panel ---------- */
+.get { margin-top: -70px; z-index: 1; text-align: center; }
+.get .tag { margin-bottom: 10px; }
+.button {
+  display: inline-flex; align-items: center; gap: 14px; margin: 8px 0 6px; padding: 12px 26px 12px 14px;
+  background: var(--look-blue); color: #fff; text-decoration: none; font-size: 22px; line-height: 1.2;
+  border: 2px solid var(--look-rim); border-radius: 12px;
+  box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.2), inset 0 2px 0 rgba(255, 255, 255, 0.25), var(--look-lift);
+}
+.button img { width: 48px; height: 48px; image-rendering: pixelated; }
+.button small { display: block; font-size: 14px; opacity: 0.85; }
+.button:hover { filter: brightness(1.08); }
+.button:active { transform: translateY(2px); box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.2), 0 1px 0 rgba(6, 8, 24, 0.4); }
+.button.green { background: var(--look-green); }
+.choice { padding: 6px 0 4px; }
+body[data-platform="all"] .choice + .choice { border-top: 2px dashed var(--look-paper-shade); margin-top: 10px; padding-top: 14px; }
+.file { font-size: 13px; color: var(--look-muted); word-break: break-all; }
+.steps { text-align: left; max-width: 520px; margin: 10px auto 0; padding-left: 24px; }
+.steps li { margin: 4px 0; }
+.glyph { display: inline-block; width: 20px; height: 20px; vertical-align: -4px; }
+#show-all {
+  margin-top: 14px; background: none; border: 0; padding: 4px 8px; font: inherit; font-size: 15px;
+  color: var(--look-blue); text-decoration: underline; cursor: pointer;
+}
+
+/* The page shows only what fits the visitor (set by the script at the bottom); "all" shows everything. */
+body[data-platform="windows"] [data-for]:not([data-for~="windows"]),
+body[data-platform="mac"] [data-for]:not([data-for~="mac"]),
+body[data-platform="phone"] [data-for]:not([data-for~="phone"]) { display: none; }
+body[data-platform="all"] #show-all { display: none; }
+
+/* ---------- first launch ---------- */
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+body:not([data-platform="all"]) .two { grid-template-columns: 1fr; }
+.diagram-steps { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 14px; }
+body:not([data-platform="all"]) .diagram-steps { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.diagram-steps li { display: grid; gap: 6px; align-content: start; }
+.diagram-steps .number {
+  display: inline-grid; place-items: center; width: 26px; height: 26px; margin-right: 6px; border-radius: 50%;
+  background: var(--look-navy); color: var(--look-gold); font-size: 14px;
+}
+.diagram-steps svg { width: 100%; height: auto; display: block; }
+.note { background: var(--look-amber-soft); border-radius: 10px; padding: 10px 14px; font-size: 15px; margin-top: 14px; }
+
+/* ---------- saves ---------- */
+.saves { display: grid; gap: 10px; margin-top: 8px; }
+.saves div { background: var(--look-blue-soft); border-radius: 10px; padding: 10px 14px; }
+.saves b { display: block; font-size: 15px; color: var(--look-muted); }
+code { font-family: ui-monospace, Menlo, Consolas, monospace; font-weight: 700; font-size: 14px; overflow-wrap: anywhere; }
+
+footer { margin: 36px 0 0; padding: 22px 0 40px; color: var(--look-dim-ink); font-size: 14px; text-align: center; }
+footer p { margin: 0 auto 8px; max-width: 640px; }
+@media (max-width: 520px) {
+  body { font-size: 16px; }
+  .card { padding: 18px 16px 20px; }
+  .get { margin-top: -28px; }
+  .button { font-size: 19px; padding: 10px 18px 10px 10px; }
+  .button img { width: 40px; height: 40px; }
+}
+</style>
+</head>
+<body data-platform="all">
+
+<header class="hero" aria-label="Pokémon AEGIS">
+  <img class="sky" src="img/title-sky.png" alt="">
+  <img class="bay" src="img/title-bay.png" alt="">
+  <img class="shore" src="img/title-shore.png" alt="">
+  <img class="vignette" src="img/title-vignette.png" alt="">
+  <div class="logo" role="img" aria-label="Pokémon AEGIS"></div>
+</header>
+
+<main class="wrap">
+  <div class="card get" id="get">
+    <span class="tag">FREE FAN GAME · VERSION 0.13.0</span>
+
+    <div class="choice" data-for="windows">
+      <h2>Get it for Windows</h2>
+      <a class="button" href="https://github.com/GarrettKent/aegis-releases/releases/download/v0.13.0/Pokemon-AEGIS-0.13.0-windows-setup.exe">
+        <img src="img/app-icon-48.png" alt=""><span>Download for Windows<small>Installer for Windows 10 and 11</small></span>
+      </a>
+      <p class="file">Pokemon-AEGIS-0.13.0-windows-setup.exe</p>
+      <p class="muted">No install? <a href="https://github.com/GarrettKent/aegis-releases/releases/download/v0.13.0/Pokemon-AEGIS-0.13.0-windows-portable.zip">Get the zip</a>: unzip it anywhere and open
+        Pokemon AEGIS.exe. It needs Microsoft Edge WebView2, which Windows 10 and 11 nearly always have.</p>
+    </div>
+
+    <div class="choice" data-for="mac">
+      <h2>Get it for Mac</h2>
+      <a class="button" href="https://github.com/GarrettKent/aegis-releases/releases/download/v0.13.0/Pokemon-AEGIS-0.13.0-mac.dmg">
+        <img src="img/app-icon-48.png" alt=""><span>Download for Mac<small>Apple silicon and Intel</small></span>
+      </a>
+      <p class="file">Pokemon-AEGIS-0.13.0-mac.dmg</p>
+      <p class="muted">Open the .dmg and drag Pokémon AEGIS into Applications, then open it from there.</p>
+    </div>
+
+    <div class="choice" data-for="phone">
+      <h2>Play on iPhone</h2>
+      <ol class="steps">
+        <li>Tap the button below to open the game in Safari.</li>
+        <li>There, tap Share
+          <svg class="glyph" viewBox="0 0 20 20" aria-label="the Share button"><path d="M6 8H4v10h12V8h-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M10 13V2M6 6l4-4 4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>,
+          then Add to Home Screen.</li>
+        <li>Open AEGIS from your home screen and turn the phone sideways. It plays full screen.</li>
+      </ol>
+      <a class="button green" href="play/">
+        <img src="img/app-icon-48.png" alt=""><span>Open the game<small>Then add it to your home screen</small></span>
+      </a>
+    </div>
+
+    <button id="show-all" type="button">Not your device? See every download</button>
+  </div>
+
+  <section data-for="windows mac">
+    <h2 class="on-sky">The first time you open it</h2>
+    <div class="two">
+      <div class="card" data-for="windows">
+        <h2>On Windows</h2>
+        <p class="muted">Windows may stop the game once with "Windows protected your PC".</p>
+        <ol class="diagram-steps">
+          <li><span><span class="number">1</span>Click <b>More info</b>.</span>
+            <svg viewBox="0 0 260 150" role="img" aria-label="The warning window, with More info circled">
+              <rect x="6" y="6" width="248" height="138" rx="8" fill="#2d63b8" stroke="#252b40" stroke-width="2"/>
+              <text x="20" y="36" fill="#fff" font-size="15" font-family="Nunito, sans-serif" font-weight="700">Windows protected your PC</text>
+              <rect x="20" y="48" width="196" height="6" rx="3" fill="#fff" opacity="0.45"/>
+              <rect x="20" y="60" width="160" height="6" rx="3" fill="#fff" opacity="0.45"/>
+              <text x="24" y="92" fill="#fff" font-size="14" font-family="Nunito, sans-serif" font-weight="700" text-decoration="underline">More info</text>
+              <rect x="14" y="74" width="86" height="26" rx="8" fill="none" stroke="#ffd979" stroke-width="3"/>
+              <rect x="160" y="110" width="80" height="22" rx="4" fill="#e9edf5"/>
+              <text x="200" y="125" fill="#2b3040" font-size="12" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="700">Don't run</text>
+              <path d="M88 92v18l5-4 4 8 4-2-4-8h7z" fill="#fff" stroke="#252b40" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg></li>
+          <li><span><span class="number">2</span>Click <b>Run anyway</b>.</span>
+            <svg viewBox="0 0 260 150" role="img" aria-label="The same window, with Run anyway circled">
+              <rect x="6" y="6" width="248" height="138" rx="8" fill="#2d63b8" stroke="#252b40" stroke-width="2"/>
+              <text x="20" y="36" fill="#fff" font-size="15" font-family="Nunito, sans-serif" font-weight="700">Windows protected your PC</text>
+              <text x="20" y="60" fill="#fff" font-size="12" font-family="Nunito, sans-serif" font-weight="700" opacity="0.85">App: Pokemon AEGIS</text>
+              <rect x="20" y="70" width="140" height="6" rx="3" fill="#fff" opacity="0.45"/>
+              <rect x="72" y="110" width="80" height="22" rx="4" fill="#e9edf5"/>
+              <text x="112" y="125" fill="#2b3040" font-size="12" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="700">Run anyway</text>
+              <rect x="66" y="104" width="92" height="34" rx="9" fill="none" stroke="#ffd979" stroke-width="3"/>
+              <rect x="164" y="110" width="80" height="22" rx="4" fill="#e9edf5"/>
+              <text x="204" y="125" fill="#2b3040" font-size="12" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="700">Don't run</text>
+              <path d="M150 128v18l5-4 4 8 4-2-4-8h7z" fill="#fff" stroke="#252b40" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg></li>
+        </ol>
+      </div>
+
+      <div class="card" data-for="mac">
+        <h2>On a Mac</h2>
+        <p class="muted">macOS may say it can't verify the game. Do this once.</p>
+        <ol class="diagram-steps">
+          <li><span><span class="number">1</span>Click <b>Done</b> on the message.</span>
+            <svg viewBox="0 0 260 150" role="img" aria-label="The message, with Done circled">
+              <rect x="40" y="6" width="180" height="138" rx="14" fill="#f2f3f7" stroke="#252b40" stroke-width="2"/>
+              <rect x="114" y="18" width="32" height="32" rx="8" fill="#3f84d9"/>
+              <path d="M124 26h12l3 3v8l-9 7-9-7v-8z" fill="#ffd979" stroke="#16143a" stroke-width="1.5"/>
+              <text x="130" y="68" fill="#2b3040" font-size="12" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="700">Pokémon AEGIS Not Opened</text>
+              <rect x="64" y="76" width="132" height="5" rx="2.5" fill="#8a93a6" opacity="0.5"/>
+              <rect x="76" y="86" width="108" height="5" rx="2.5" fill="#8a93a6" opacity="0.5"/>
+              <rect x="56" y="102" width="148" height="16" rx="8" fill="#3f84d9"/>
+              <text x="130" y="114" fill="#fff" font-size="11" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="700">Done</text>
+              <rect x="50" y="97" width="160" height="26" rx="13" fill="none" stroke="#e98a32" stroke-width="3"/>
+              <text x="130" y="136" fill="#6f7890" font-size="11" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="700">Move to Trash</text>
+            </svg></li>
+          <li><span><span class="number">2</span>Open <b>System Settings</b>, then <b>Privacy &amp; Security</b>. Near the bottom, click <b>Open Anyway</b>.</span>
+            <svg viewBox="0 0 260 150" role="img" aria-label="System Settings, Privacy and Security, with Open Anyway circled">
+              <rect x="6" y="6" width="248" height="138" rx="10" fill="#f2f3f7" stroke="#252b40" stroke-width="2"/>
+              <rect x="7" y="7" width="96" height="136" rx="9" fill="#e2e5ee"/>
+              <rect x="16" y="24" width="56" height="6" rx="3" fill="#8a93a6" opacity="0.5"/>
+              <rect x="16" y="40" width="48" height="6" rx="3" fill="#8a93a6" opacity="0.5"/>
+              <rect x="12" y="54" width="86" height="20" rx="5" fill="#3f84d9"/>
+              <text x="55" y="68" fill="#fff" font-size="9" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="700">Privacy &amp; Security</text>
+              <rect x="16" y="84" width="52" height="6" rx="3" fill="#8a93a6" opacity="0.5"/>
+              <rect x="16" y="100" width="44" height="6" rx="3" fill="#8a93a6" opacity="0.5"/>
+              <text x="114" y="30" fill="#2b3040" font-size="12" font-family="Nunito, sans-serif" font-weight="700">Security</text>
+              <text x="114" y="58" fill="#2b3040" font-size="10" font-family="Nunito, sans-serif" font-weight="700">Pokémon AEGIS was blocked</text>
+              <rect x="114" y="66" width="110" height="5" rx="2.5" fill="#8a93a6" opacity="0.5"/>
+              <rect x="166" y="84" width="74" height="20" rx="6" fill="#fff" stroke="#c4cad8"/>
+              <text x="203" y="98" fill="#2b3040" font-size="10" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="700">Open Anyway</text>
+              <rect x="160" y="78" width="86" height="32" rx="10" fill="none" stroke="#e98a32" stroke-width="3"/>
+              <path d="M220 100v18l5-4 4 8 4-2-4-8h7z" fill="#fff" stroke="#252b40" stroke-width="1.5" stroke-linejoin="round"/>
+            </svg></li>
+          <li><span><span class="number">3</span>Click <b>Open Anyway</b> again and enter your Mac password. From then on it opens like any app.</span></li>
+        </ol>
+      </div>
+    </div>
+    <p class="note" style="color: var(--look-ink)">Why the warning? Pokémon AEGIS is free and isn't signed with a paid
+      certificate, so Windows and macOS ask you once before it opens.</p>
+  </section>
+
+  <section>
+    <h2 class="on-sky">Where your saves live</h2>
+    <div class="card">
+      <p data-for="windows mac">On Windows and Mac each save slot is one small file, <code>save-1.json</code> to
+        <code>save-3.json</code>. Copy them to back up your game or to carry it to another computer.</p>
+      <div class="saves">
+        <div data-for="windows"><b>Windows, installed</b><code>%APPDATA%\Pokemon AEGIS\saves</code></div>
+        <div data-for="windows"><b>Windows, zip</b>The <code>saves</code> folder next to <code>Pokemon AEGIS.exe</code></div>
+        <div data-for="mac"><b>Mac</b><code>~/Library/Application Support/Pokemon AEGIS/saves</code></div>
+        <div data-for="phone"><b>iPhone</b>Your saves are not files here: they stay inside the AEGIS app on your home screen. Removing it from your home screen removes them.</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <p>Pokémon AEGIS is a free, unofficial fan game made for fun. It is not affiliated with, endorsed by or connected
+    to Nintendo, Game Freak, Creatures or The Pokémon Company.</p>
+  <p>Pokémon and Pokémon character names are trademarks of Nintendo, Game Freak and The Pokémon Company.</p>
+</footer>
+
+<script>
+  // Offer the download that fits: phones (an iPad says it is a Mac but has touch) get the web app, Windows gets the
+  // installer, a Mac gets the .dmg, anything else sees all three.
+  const agent = navigator.userAgent;
+  const isPhone = /iPhone|iPad|iPod|Android/i.test(agent) || (/Macintosh/.test(agent) && navigator.maxTouchPoints > 1);
+  const platform = isPhone ? "phone" : /Windows/.test(agent) ? "windows" : /Macintosh|Mac OS X/.test(agent) ? "mac" : "all";
+  document.body.dataset.platform = platform;
+  document.getElementById("show-all").addEventListener("click", () => {
+    document.body.dataset.platform = "all";
+  });
+</script>
+</body>
+</html>

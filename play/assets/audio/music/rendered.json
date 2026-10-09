@@ -1,0 +1,17 @@
+{
+  "about": "Produced tracks (scripts/audio/metal/ship-song.mjs, npm run ship-music): the game plays <id>.ogg in place of <id>.mid. Frames at sampleRate; the intro plays once, then the loop from loopStartFrame to loopEndFrame (the file's end) over and over. Written by the script, never by hand.",
+  "tracks": {
+    "vess-battle": {
+      "file": "vess-battle.ogg",
+      "sampleRate": 44100,
+      "loopStartFrame": 441000,
+      "loopEndFrame": 4851000
+    },
+    "halcyon-battle": {
+      "file": "halcyon-battle.ogg",
+      "sampleRate": 44100,
+      "loopStartFrame": 504000,
+      "loopEndFrame": 3780000
+    }
+  }
+}

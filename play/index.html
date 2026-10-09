@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta name="robots" content="noindex" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+    <title>Pokémon AEGIS</title>
+    <link rel="icon" href="data:," />
+    <!-- The iPhone home-screen web app: its icon, its name under the icon, full screen with the game under the
+         status bar. The manifest names the same for other phones. -->
+    <link rel="apple-touch-icon" href="/aegis-releases/play/assets/ui/app-icon-180.png" />
+    <link rel="manifest" href="/aegis-releases/play/manifest.webmanifest" />
+    <meta name="theme-color" content="#191e48" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="AEGIS" />
+    <script type="module" crossorigin src="/aegis-releases/play/assets/index-DJYFIuQ5.js"></script>
+    <link rel="stylesheet" crossorigin href="/aegis-releases/play/assets/index-DtqeEFRZ.css">
+  </head>
+  <body>
+    <div id="game">
+      <canvas id="world"></canvas>
+      <div id="ui-root"></div>
+    </div>
+  <script>
+      // The web app only (added by scripts/web/buildPages.mjs): keeps what it loads so it can open offline.
+      if ("serviceWorker" in navigator && location.protocol === "https:") {
+        window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));
+      }
+    </script>
+  </body>
+</html>
